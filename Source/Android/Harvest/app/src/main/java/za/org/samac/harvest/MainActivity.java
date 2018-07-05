@@ -31,6 +31,7 @@ import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -81,6 +82,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     private String emailInDB;
     private String uid;
     private String foremanID;
+    private String foremanName;
     private DatabaseReference currUserRef;
     private DatabaseReference farmRef;
     private DatabaseReference sessRef;
@@ -322,6 +324,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
                     } else {
                         if (zoneSnapshot.child("email").getValue(String.class).equals(currentUserEmail)) {
                             foremanID = zoneSnapshot.getKey();
+                            foremanName = zoneSnapshot.child("name").getValue(String.class) + " " + zoneSnapshot.child("surname").getValue(String.class);
                         }
                     }
                 }
@@ -375,12 +378,62 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
      Sessions for each worker still needs to be implemented *
      */
     long startTime = 0, stopTime = 0;
+    Boolean locationWanted = false;
 
     @SuppressLint({"SetTextI18n", "MissingPermission"})
     public void onClickStart(View v) {
         startSessionTime = (System.currentTimeMillis() / divideBy1000Var);//(start time of session)seconds since January 1, 1970 00:00:00 UTC
 
         sessRef = database.getReference(farmerKey + "/sessions/" + sessionKey + "/");//path to inside a session key in Firebase
+
+        DatabaseReference myRef;
+        myRef = database.getReference(farmerKey + "/requestedLocations/" + foremanID);//path to sessions increment in Firebase
+        myRef.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                for (DataSnapshot child : dataSnapshot.getChildren()) {
+                    if (child.toString().equals(foremanID)) {
+                        locationWanted = true;
+                        break;
+                    }
+                }
+
+                if (locationWanted == true) {
+                    DatabaseReference myRef2;
+                    myRef2 = database.getReference(farmerKey + "/locations/" + foremanID);//path to sessions increment in Firebase
+
+                    Map<String, Object> coordinates = new HashMap<>();
+                    coordinates.put("lat", location.getLatitude());
+                    coordinates.put("lng", location.getLongitude());
+
+                    Map<String, Object> childUpdates = new HashMap<>();
+                    childUpdates.put("coord", coordinates);
+                    childUpdates.put("display", foremanName);
+
+                    myRef2.updateChildren(childUpdates);//store location
+                }
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
         Map<String, Object> sessionDate = new HashMap<>();
         sessionDate.put("start_date", startSessionTime);
