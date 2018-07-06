@@ -3,9 +3,13 @@ package za.org.samac.harvest.adapter;
 import android.content.Intent;
 import android.location.Location;
 import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -50,13 +54,14 @@ public class SessionDetails extends AppCompatActivity {
     private HashMap<String, String> workerID;
     private ArrayList<Worker> foremen;
     private HashMap<String, String> foremenID;
+    private ConstraintLayout constLayout;
     //private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_session_details);
-
+        constLayout = findViewById(R.id.constLayout);
         //progressBar = findViewById(R.id.progressBar);
         //progressBar.setVisibility(View.VISIBLE);//put progress bar until data is retrieved from firebase
 
@@ -96,10 +101,20 @@ public class SessionDetails extends AppCompatActivity {
         dbref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot zoneSnapshot: dataSnapshot.getChildren()) {
-                    //startDate = new Date((long)(zoneSnapshot.child("start_date").getValue(Double.class)*1000));
+                if (dataSnapshot.child("start_date").getValue() == null) {
+                    Snackbar.make(constLayout, "An error occured, please try again.", Snackbar.LENGTH_LONG)
+                            .setAction("OK", new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+
+                                }
+                            })
+                            .show();
+                    return;
                 }
+                System.out.println("%%%%%%%%%%%%% "+dataSnapshot+" %%%%%%%%%%%%%");
                 startDate = new Date((long)(dataSnapshot.child("start_date").getValue(Double.class) * 1000));
+
                 Double ed = dataSnapshot.child("end_date").getValue(Double.class);
                 if (ed != null) {
                     endDate = new Date((long)(ed * 1000));
@@ -151,5 +166,10 @@ public class SessionDetails extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
     }
 }
