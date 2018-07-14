@@ -17,6 +17,8 @@ import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.utils.ColorTemplate;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -123,10 +125,40 @@ public class PieChart extends AppCompatActivity {
                         if(workerId != null) {
                             workerKeys.add(key);
                             yield.add(((ArrayList)workerId).size());
+<<<<<<< HEAD
+=======
                         }
                     }
                 }
 
+                getWorkerNames();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.w(TAG, "onCancelled", databaseError.toException());
+            }
+        });
+    }
+
+    public void getWorkerNames() {
+        DatabaseReference ref = database.getReference(userUid + "/workers/");//path to workers increment in Firebase
+
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (int i = 0; i<workerKeys.size(); i++) {
+                    workerKey = workerKeys.get(i);
+                    for (DataSnapshot child : dataSnapshot.getChildren()) {
+                        if (workerKey.equals(child.getKey())) {
+                            workerName.add(child.child("name").getValue(String.class) + " " + child.child("surname").getValue(String.class));
+                            break;
+>>>>>>> 672409321bd6c7299473391a6a812faf411db6bd
+                        }
+                    }
+                }
+
+<<<<<<< HEAD
                 getWorkerNames();
             }
 
@@ -168,6 +200,23 @@ public class PieChart extends AppCompatActivity {
                     PieData data = new PieData(dataset);//labels was one of the parameters
                     pieChart.setData(data); // set the data and list of lables into chart
 
+=======
+                if (workerName.size() == workerKeys.size()) {
+                    //put labels on chart
+                    for (int i = 0; i<workerName.size(); i++) {
+                        entries.add(new PieEntry((float)yield.get(i), workerName.get(i)));//exchange index with Worker Name
+                    }
+
+                    progressBar.setVisibility(View.GONE);//put progress bar until data is retrieved from firebase
+                    pieChartView.setVisibility(View.VISIBLE);
+
+                    PieDataSet dataset = new PieDataSet(entries, "Dataset");
+                    dataset.setColors(ColorTemplate.VORDIPLOM_COLORS);
+
+                    PieData data = new PieData(dataset);//labels was one of the parameters
+                    pieChart.setData(data); // set the data and list of lables into chart
+
+>>>>>>> 672409321bd6c7299473391a6a812faf411db6bd
                     Description description = new Description();
                     description.setText("Worker Performance");
                     pieChart.setDescription(description); // set the description
@@ -197,6 +246,15 @@ public class PieChart extends AppCompatActivity {
                 }
                 else {
 //                    FirebaseAuth.getInstance().signOut();
+                }
+                if (LoginActivity.mGoogleSignInClient != null) {
+                    LoginActivity.mGoogleSignInClient.signOut().addOnCompleteListener(this,
+                            new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    startActivity(new Intent(PieChart.this, LoginActivity.class));
+                                }
+                            });
                 }
                 finish();
                 return true;

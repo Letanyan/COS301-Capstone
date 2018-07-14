@@ -11,30 +11,18 @@
         android:orientation="vertical">
 
         <Button
-            android:id="@+id/workerHistPerformance"
+            android:id="@+id/btnWorkers"
             style="@style/Button"
-<<<<<<< HEAD
-            android:text="@string/WorkerHistPerformance"
-            android:background="@color/androidGrey"
-            android:textColor="@color/black"/>
-=======
-            android:textColor="@color/black"
             android:background="@color/white"
-            android:text="@string/WorkerHistPerformance"/>
->>>>>>> 672409321bd6c7299473391a6a812faf411db6bd
+            android:textColor="@color/black"
+            android:text="@string/workers"/>
 
         <Button
-            android:id="@+id/orchHistPerformance"
+            android:id="@+id/btnForemen"
             style="@style/Button"
-<<<<<<< HEAD
-            android:text="@string/OrchHistPerformance"
-            android:background="@color/androidGrey"
-            android:textColor="@color/black"/>
-=======
             android:background="@color/white"
             android:textColor="@color/black"
-            android:text="@string/OrchHistPerformance"/>
->>>>>>> 672409321bd6c7299473391a6a812faf411db6bd
+            android:text="@string/foremen"/>
 
     </LinearLayout>
 
@@ -47,6 +35,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/bottom_navigation_main" />
-
 
 </android.support.constraint.ConstraintLayout>

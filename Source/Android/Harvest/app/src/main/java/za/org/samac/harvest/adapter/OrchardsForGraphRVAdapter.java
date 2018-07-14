@@ -11,7 +11,11 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+<<<<<<< HEAD
 import za.org.samac.harvest.BarGraph;
+=======
+import za.org.samac.harvest.SpiralGraph;
+>>>>>>> 672409321bd6c7299473391a6a812faf411db6bd
 import za.org.samac.harvest.R;
 
 public class OrchardsForGraphRVAdapter extends RecyclerView.Adapter<OrchardsForGraphRVAdapter.OrchardsViewHolder> {
@@ -42,7 +46,11 @@ public class OrchardsForGraphRVAdapter extends RecyclerView.Adapter<OrchardsForG
         holder.button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+<<<<<<< HEAD
                 Intent details = new Intent(context, BarGraph.class);
+=======
+                Intent details = new Intent(context, SpiralGraph.class);
+>>>>>>> 672409321bd6c7299473391a6a812faf411db6bd
                 details.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
                 Intent key = details.putExtra("key", orchardKey);

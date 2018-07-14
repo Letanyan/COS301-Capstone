@@ -5,61 +5,32 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
 
 import com.github.mikephil.charting.data.PieEntry;
 import com.google.firebase.auth.FirebaseAuth;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
 
-import za.org.samac.harvest.adapter.ForemanRecyclerViewAdapter;
-import za.org.samac.harvest.adapter.WorkerRecyclerViewAdapter;
-import za.org.samac.harvest.domain.Foreman;
 import za.org.samac.harvest.util.AppUtil;
 
-import static za.org.samac.harvest.MainActivity.farmerKey;
-
-public class ForemenPerSession extends AppCompatActivity /*RecyclerView.Adapter<ForemenPerSession.ForemenViewHolder>*/ {
+public class WorkerOrForeman extends AppCompatActivity{
     private BottomNavigationView bottomNavigationView;
     private ArrayList<PieEntry> entries = new ArrayList<>();
     private Button perSesWorkerComparison;
-
-    private List<Foreman> foremen;
-    private ForemanRecyclerViewAdapter adapter;
+    private Button orhHistPerformance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_foremen_session);
-
-        this.foremen = new ArrayList<>();
-<<<<<<< HEAD
-        this.adapter = new ForemanRecyclerViewAdapter(this, (Sessions) this.foremen);
-=======
->>>>>>> 672409321bd6c7299473391a6a812faf411db6bd
+        setContentView(R.layout.activity_worker_or_foreman);
 
         bottomNavigationView = findViewById(R.id.BottomNav);
-        bottomNavigationView.setSelectedItemId(R.id.actionInformation);
+        bottomNavigationView.setSelectedItemId(R.id.actionStats);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -67,24 +38,21 @@ public class ForemenPerSession extends AppCompatActivity /*RecyclerView.Adapter<
                     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                         switch (item.getItemId()) {
                             case R.id.actionYieldTracker:
-                                Intent openMainActivity= new Intent(ForemenPerSession.this, MainActivity.class);
+                                Intent openMainActivity= new Intent(WorkerOrForeman.this, MainActivity.class);
                                 openMainActivity.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                                 startActivityIfNeeded(openMainActivity, 0);
                                 return true;
                             case R.id.actionInformation:
-                                Intent openInformation= new Intent(ForemenPerSession.this, InformationActivity.class);
+                                Intent openInformation= new Intent(WorkerOrForeman.this, InformationActivity.class);
                                 openInformation.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                                 startActivityIfNeeded(openInformation, 0);
                                 return true;
                             case R.id.actionSession:
-                                Intent openSessions= new Intent(ForemenPerSession.this, SessionsMap.class);
+                                Intent openSessions= new Intent(WorkerOrForeman.this, SessionsMap.class);
                                 openSessions.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                                 startActivityIfNeeded(openSessions, 0);
                                 return true;
                             case R.id.actionStats:
-                                Intent openAnalytics= new Intent(ForemenPerSession.this, Analytics.class);
-                                openAnalytics.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                                startActivityIfNeeded(openAnalytics, 0);
                                 return true;
 
                         }
@@ -93,7 +61,28 @@ public class ForemenPerSession extends AppCompatActivity /*RecyclerView.Adapter<
                 });
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+
+        //user selects to see pie chart
+        perSesWorkerComparison = findViewById(R.id.btnWorkers);
+        perSesWorkerComparison.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(WorkerOrForeman.this, WorkersForBarGraph.class);
+                startActivity(intent);
+            }
+        });
+
+        //user selects to see bar graph
+        orhHistPerformance = findViewById(R.id.btnForemen);
+        orhHistPerformance.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(WorkerOrForeman.this, ForemenForBarGraph.class);
+                startActivity(intent);
+            }
+        });
     }
+
     //Handle the menu
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -108,12 +97,12 @@ public class ForemenPerSession extends AppCompatActivity /*RecyclerView.Adapter<
             case R.id.search:
                 return true;
             case R.id.settings:
-                startActivity(new Intent(ForemenPerSession.this, SettingsActivity.class));
+                startActivity(new Intent(WorkerOrForeman.this, SettingsActivity.class));
                 return true;
             case R.id.logout:
                 FirebaseAuth.getInstance().signOut();
                 if(!AppUtil.isUserSignedIn()){
-                    startActivity(new Intent(ForemenPerSession.this, LoginActivity.class));
+                    startActivity(new Intent(WorkerOrForeman.this, LoginActivity.class));
                 }
                 else {
 //                    FirebaseAuth.getInstance().signOut();
@@ -129,4 +118,5 @@ public class ForemenPerSession extends AppCompatActivity /*RecyclerView.Adapter<
         }
 //        return false;
     }
+
 }

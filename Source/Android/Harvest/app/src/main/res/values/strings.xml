@@ -190,4 +190,9 @@
     <string name="sessionDetailEndDate">Time Ended</string>
     <string name="sessionDetailForemanName">Foreman</string>
     <string name="sessionDetailsViewPickups">Tracked Path and Collection Points</string>
+<<<<<<< HEAD
+=======
+    <string name="foremen">Foremen</string>
+    <string name="workers">Workers</string>
+>>>>>>> 672409321bd6c7299473391a6a812faf411db6bd
 </resources>

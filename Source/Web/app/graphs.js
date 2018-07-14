@@ -1,9 +1,15 @@
+<<<<<<< HEAD
 /* Vincent Added comments to the following code below */
 const baseUrl = 'https://us-central1-harvest-ios-1522082524457.cloudfunctions.net/timedGraphSessions';
 const database = firebase.database();	/* Pointing to database on firebase cloud */
 const user = function() { return firebase.auth().currentUser }; /* Function which authenticates user */
 
 /* Function returns the user ID of the selected user */
+=======
+const baseUrl = 'https://us-central1-harvest-ios-1522082524457.cloudfunctions.net/timedGraphSessions';
+const database = firebase.database();
+const user = function() { return firebase.auth().currentUser };
+>>>>>>> 672409321bd6c7299473391a6a812faf411db6bd
 const userID = function() {
   if (user() !== null) {
     return user().uid ;
@@ -12,9 +18,15 @@ const userID = function() {
   }
 }
 
+<<<<<<< HEAD
 var foremen = []; /* Array containing a list of Foremen names */
 var workers = []; /* Array containing a list of workers names */
 var orchards = []; /* Array containing a list of Orchard names */
+=======
+var foremen = [];
+var workers = [];
+var orchards = [];
+>>>>>>> 672409321bd6c7299473391a6a812faf411db6bd
 
 /*firebase.auth().onAuthStateChanged(function (user) {
   if (user) {
@@ -24,17 +36,26 @@ var orchards = []; /* Array containing a list of Orchard names */
   }
 });*/
 
+<<<<<<< HEAD
 /* Function returns a pointer to the list of workers of the particular user ID */
+=======
+>>>>>>> 672409321bd6c7299473391a6a812faf411db6bd
 function workersRef() {
   return database.ref('/' + userID()  + '/workers');
 }
 
+<<<<<<< HEAD
 /* Function returns a pointer to the list of orchards of the particular user ID */
+=======
+>>>>>>> 672409321bd6c7299473391a6a812faf411db6bd
 function orchardsRef() {
   return database.ref('/' + userID()  + '/orchards');
 }
 
+<<<<<<< HEAD
 /* Function returns a worker pointed to by the callback parameter */
+=======
+>>>>>>> 672409321bd6c7299473391a6a812faf411db6bd
 function getWorkers(callback) {
   const ref = firebase.database().ref('/' + userID() + '/workers');
   ref.once('value').then((snapshot) => {
@@ -42,7 +63,10 @@ function getWorkers(callback) {
   });
 }
 
+<<<<<<< HEAD
 /* Function returns an orchard pointed to by the callback parameter */
+=======
+>>>>>>> 672409321bd6c7299473391a6a812faf411db6bd
 function getOrchards(_callback) {
   const ref = firebase.database().ref('/' + userID() + '/orchards');
   ref.once('value').then((snapshot) => {
@@ -50,17 +74,26 @@ function getOrchards(_callback) {
   });
 }
 
+<<<<<<< HEAD
 /* Function returns a foremen, given a particular key */
+=======
+>>>>>>> 672409321bd6c7299473391a6a812faf411db6bd
 function foremanForKey(key) {
   for (var k in foremen) {
     if (foremen[k].key === key) {
       return foremen[k];
     }
   }
+<<<<<<< HEAD
   return {value: {name: "Farm", surname: "Owner"}}; //The return value is a JSON object
 }
 
 /* Function returns a worker, given a particular key */
+=======
+  return {value: {name: "Farm", surname: "Owner"}};
+}
+
+>>>>>>> 672409321bd6c7299473391a6a812faf411db6bd
 function workerForKey(key) {
   for (var k in workers) {
     if (workers[k].key === key) {
@@ -72,11 +105,18 @@ function workerForKey(key) {
 
 //calls functions that populate the drop down lists and worker/orchard arrays
 function initPage(){
+<<<<<<< HEAD
     initOrchards(); //This function initiates the orchards immediately when the analytics page is accessed (for selction)
     initWorkers();	//This function initiates the workers immediately when the analytics page is accessed (for selection)
 }
 
 /* This function loads all available orchards in the database, for graph filtering */
+=======
+    initOrchards();
+    initWorkers();
+}
+
+>>>>>>> 672409321bd6c7299473391a6a812faf411db6bd
 function initOrchards(){
     var orchardSelect = document.getElementById('orchardSelect');
     getOrchards((orchardsSnap) => {
@@ -92,7 +132,10 @@ function initOrchards(){
     }); 
 }
 
+<<<<<<< HEAD
 /* This function loads all available workers in the database, for graph filtering */
+=======
+>>>>>>> 672409321bd6c7299473391a6a812faf411db6bd
 function initWorkers(){
    var workerSelect = document.getElementById('workerSelect');
    getWorkers((workersSnap) => {
@@ -124,11 +167,18 @@ function filterOrchard(){
         orchardPerformance(start, end, id);
     }else{
         window.alert("Some fields in the orchard filter appear to be blank. \n"
+<<<<<<< HEAD
         +"Please enter them to continue."); //Appropriate error message when loading fails
     }
 }
 
 /* This function returns the Orchard ID when given the name of the orchard */
+=======
+        +"Please enter them to continue.");
+    }
+}
+
+>>>>>>> 672409321bd6c7299473391a6a812faf411db6bd
 function getOrchardId(name){
     var id='';
     for (var k in orchards) {
@@ -151,11 +201,18 @@ function filterWorker(){
         workerPerformance(start, end, id);
     }else{
         window.alert("Some fields in the worker filter appear to be blank. \n"
+<<<<<<< HEAD
         +"Please enter them to continue."); //Appropriate error message when loading of workers fails 
     }
 }
 
 /* This function returns the worker ID, given the name of a particular worker */
+=======
+        +"Please enter them to continue.");
+    }
+}
+
+>>>>>>> 672409321bd6c7299473391a6a812faf411db6bd
 function getWorkerId(name){
     var id='';
     for (var k in workers) {
@@ -167,11 +224,19 @@ function getWorkerId(name){
     return id;
 }
 
+<<<<<<< HEAD
 var groupBy; /* grouping variable */
 var period;	/* period time space variable */
 var startDate;	/* Begin date variable */
 var endDate;	/* End date variable */
 var uid;	/* user ID variable */
+=======
+var groupBy;
+var period;
+var startDate;
+var endDate;
+var uid;
+>>>>>>> 672409321bd6c7299473391a6a812faf411db6bd
 
 //converts a date to seconds since epoch
 function dateToSeconds(date){ return Math.floor( date.getTime() / 1000 ) }
