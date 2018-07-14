@@ -11,21 +11,10 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-<<<<<<< HEAD
-=======
-import android.view.Menu;
-import android.view.MenuInflater;
->>>>>>> 672409321bd6c7299473391a6a812faf411db6bd
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 
-<<<<<<< HEAD
-=======
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
->>>>>>> 672409321bd6c7299473391a6a812faf411db6bd
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -35,10 +24,6 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 import za.org.samac.harvest.adapter.OrchardsForGraphRVAdapter;
-<<<<<<< HEAD
-=======
-import za.org.samac.harvest.util.AppUtil;
->>>>>>> 672409321bd6c7299473391a6a812faf411db6bd
 
 public class OrchardsForGraph extends AppCompatActivity {
 
@@ -122,51 +107,4 @@ public class OrchardsForGraph extends AppCompatActivity {
             }
         });
     }
-<<<<<<< HEAD
-=======
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item){
-        switch (item.getItemId()){
-            case R.id.search:
-                return true;
-            case R.id.settings:
-                startActivity(new Intent(OrchardsForGraph.this, SettingsActivity.class));
-                return true;
-            case R.id.logout:
-                FirebaseAuth.getInstance().signOut();
-                if(!AppUtil.isUserSignedIn()){
-                    startActivity(new Intent(OrchardsForGraph.this, LoginActivity.class));
-                }
-                else {
-//                    FirebaseAuth.getInstance().signOut();
-                }
-                if (LoginActivity.mGoogleSignInClient != null) {
-                    LoginActivity.mGoogleSignInClient.signOut().addOnCompleteListener(this,
-                            new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    startActivity(new Intent(OrchardsForGraph.this, LoginActivity.class));
-                                }
-                            });
-                }
-                finish();
-                return true;
-//            case R.id.homeAsUp:
-//                onBackPressed();
-//                return true;
-            default:
-                super.onOptionsItemSelected(item);
-                return true;
-        }
-//        return false;
-    }
->>>>>>> 672409321bd6c7299473391a6a812faf411db6bd
 }

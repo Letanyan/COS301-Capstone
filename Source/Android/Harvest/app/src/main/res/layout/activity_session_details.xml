@@ -14,11 +14,7 @@
         android:layout_centerInParent="true"
         android:layout_gravity="center"
         android:layout_marginBottom="8dp"
-<<<<<<< HEAD
         android:visibility="visible" />
-=======
-        android:visibility="gone" />
->>>>>>> 672409321bd6c7299473391a6a812faf411db6bd
 
     <ScrollView
         android:id="@+id/signUp_form"

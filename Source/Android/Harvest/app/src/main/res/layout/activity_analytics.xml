@@ -13,28 +13,16 @@
         <Button
             android:id="@+id/workerHistPerformance"
             style="@style/Button"
-<<<<<<< HEAD
             android:text="@string/WorkerHistPerformance"
             android:background="@color/androidGrey"
             android:textColor="@color/black"/>
-=======
-            android:textColor="@color/black"
-            android:background="@color/white"
-            android:text="@string/WorkerHistPerformance"/>
->>>>>>> 672409321bd6c7299473391a6a812faf411db6bd
 
         <Button
             android:id="@+id/orchHistPerformance"
             style="@style/Button"
-<<<<<<< HEAD
             android:text="@string/OrchHistPerformance"
             android:background="@color/androidGrey"
             android:textColor="@color/black"/>
-=======
-            android:background="@color/white"
-            android:textColor="@color/black"
-            android:text="@string/OrchHistPerformance"/>
->>>>>>> 672409321bd6c7299473391a6a812faf411db6bd
 
     </LinearLayout>
 

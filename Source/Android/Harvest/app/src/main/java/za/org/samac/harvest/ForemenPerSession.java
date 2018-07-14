@@ -53,10 +53,7 @@ public class ForemenPerSession extends AppCompatActivity /*RecyclerView.Adapter<
         setContentView(R.layout.activity_foremen_session);
 
         this.foremen = new ArrayList<>();
-<<<<<<< HEAD
         this.adapter = new ForemanRecyclerViewAdapter(this, (Sessions) this.foremen);
-=======
->>>>>>> 672409321bd6c7299473391a6a812faf411db6bd
 
         bottomNavigationView = findViewById(R.id.BottomNav);
         bottomNavigationView.setSelectedItemId(R.id.actionInformation);

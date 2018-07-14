@@ -28,8 +28,6 @@ import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -68,7 +66,7 @@ public class Analytics extends AppCompatActivity {
         setContentView(R.layout.activity_analytics);
 
         bottomNavigationView = findViewById(R.id.BottomNav);
-        bottomNavigationView.setSelectedItemId(R.id.actionStats);
+        bottomNavigationView.setSelectedItemId(R.id.actionInformation);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -76,10 +74,9 @@ public class Analytics extends AppCompatActivity {
                     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                         switch (item.getItemId()) {
                             case R.id.actionYieldTracker:
-                                /*Intent openMainActivity= new Intent(Analytics.this, MainActivity.class);
+                                Intent openMainActivity= new Intent(Analytics.this, MainActivity.class);
                                 openMainActivity.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                                startActivityIfNeeded(openMainActivity, 0);*/
-                                startActivity(new Intent(Analytics.this, MainActivity.class));
+                                startActivityIfNeeded(openMainActivity, 0);
                                 return true;
                             case R.id.actionInformation:
                                 Intent openInformation= new Intent(Analytics.this, InformationActivity.class);
@@ -87,16 +84,9 @@ public class Analytics extends AppCompatActivity {
                                 startActivityIfNeeded(openInformation, 0);
                                 return true;
                             case R.id.actionSession:
-<<<<<<< HEAD
                                 Intent openSessions= new Intent(Analytics.this, SessionsMap.class);
                                 openSessions.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                                 startActivityIfNeeded(openSessions, 0);
-=======
-                                /*Intent openSessions= new Intent(Analytics.this, Sessions.class);
-                                openSessions.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                                startActivityIfNeeded(openSessions, 0);*/
-                                startActivity(new Intent(Analytics.this, Sessions.class));
->>>>>>> 672409321bd6c7299473391a6a812faf411db6bd
                                 return true;
                             case R.id.actionStats:
                                 return true;
@@ -113,11 +103,7 @@ public class Analytics extends AppCompatActivity {
         perSesWorkerComparison.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-<<<<<<< HEAD
                 Intent intent = new Intent(Analytics.this, BarGraph.class);
-=======
-                Intent intent = new Intent(Analytics.this, WorkerOrForeman.class);
->>>>>>> 672409321bd6c7299473391a6a812faf411db6bd
                 startActivity(intent);
             }
         });
@@ -156,15 +142,6 @@ public class Analytics extends AppCompatActivity {
                 }
                 else {
 //                    FirebaseAuth.getInstance().signOut();
-                }
-                if (LoginActivity.mGoogleSignInClient != null) {
-                    LoginActivity.mGoogleSignInClient.signOut().addOnCompleteListener(this,
-                            new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    startActivity(new Intent(Analytics.this, LoginActivity.class));
-                                }
-                            });
                 }
                 finish();
                 return true;
